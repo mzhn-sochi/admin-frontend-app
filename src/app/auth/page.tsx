@@ -19,8 +19,8 @@ export default function Auth() {
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-col space-y-1.5">
-                        <Label htmlFor="email">E-mail</Label>
-                        <Input id="email" type="email" placeholder="Ваша почта..." />
+                        <Label htmlFor="phone_number">Телефон</Label>
+                        <Input id="phone_nuber" type="tel" placeholder="Ваш телефон..." />
                     </div>
                     <div className="flex flex-col space-y-1.5 pt-4">
                         <Label htmlFor="password">Пароль</Label>

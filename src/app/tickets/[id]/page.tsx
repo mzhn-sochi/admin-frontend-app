@@ -25,22 +25,30 @@ async function getData(id: string) {
 
 
 export default async function Ticket({ params: { id } }: Props) {
-  const ticket = await getData(id)
+  const response = await getData(id)
+  const ticket: Ticket = {
+    id: response.id,
+    uid: "15",
+    shop_address: "Магазин продуктов \"Молоко\", г. Донецк, пр. Мира 8а",
+    image_url: "***",
+    status: "В обработке",
+    created: new Date(),
+    updated: new Date(),
+  }
   const overpricing = 99
   const user_rating = 4.7
-  const date = "12.04.2024"
 
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <div className="grid grid-cols-2 gap-4 w-2/3 mtb-10">
+      <div className="grid grid-cols-2 gap-4 w-2/3 mt-10 mb-10">
         <div className="col-span-2">
           <p>Жалоба №{ticket.id}</p>
-          <p className="text-2xl font-bold">{ticket.title}</p>
-          <p>Магазин продуктов "Молоко", г. Донецк, пр. Мира 8а</p>
+          <p className="text-2xl font-bold">{response.title}</p>
+          <p>{ticket.shop_address}</p>
 
         </div>
         <div>
-          <p>12.04.2024</p>
+          <p>{ticket.created.toLocaleDateString()}</p>
         </div>
         <div className="flex justify-self-end">
           <p>Мажан </p>

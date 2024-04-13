@@ -1,9 +1,15 @@
-interface Ticket {
+import { Status } from "@/app/tools";
+
+export interface Ticket {
     id: string;
-    uid: string;
-    shop_address: string;
-    image_url: string;
-    status: string;
-    created: Date;
-    updated: Date;
+    userId: string;
+    phone: string;
+    lastName: string;
+    firstName: string;
+    middleName: string;
+    shopAddress: string;
+    imageUrl: string;
+    status: Status;
+    createdAt: number;
+    updatedAt: number;
 }

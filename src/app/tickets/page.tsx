@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,16 +9,22 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+
 import { Metadata } from "next";
 import Link from "next/link";
+import { getStatusString, unixToDate } from "../tools";
+import { Ticket } from "../ticket";
+import PaginationControls from "@/components/my-pagination";
 
 export const metadata: Metadata = {
   title: "Жалобы",
   description: "Административный портал для тикетов",
 };
 
-async function getData() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+const host = "77.221.158.75:8080"
+
+async function getData(limit: number, offset: number) {
+  const response = await fetch(`http://${host}/api/v1/tickets/?limit=${limit}&offset=${offset}`, {
     next: {
       revalidate: 10
     }
@@ -27,11 +32,24 @@ async function getData() {
   return response.json();
 };
 
-export default async function Tickets() {
-  const tickets = await getData()
+export default async function Page({ searchParams, }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  
+  const page = searchParams['page'] ?? '1'
+  const perPage = searchParams['perPage'] ?? '10'
+
+  const start =  (Number(page) -1 )  * Number(perPage)
+  const end = start + Number(perPage)
+  
+  const response = await getData(Number(perPage) + 1, start)
+  console.log(response.data.tickets)
+
+  const tickets: Ticket[] = response.data.tickets;
+  const total: number = response.data.total;
+
+  // console.log(total)
 
   return (
-    <main className="flex min-h-screen flex-col items-center">
+    <main className="flex min-h-screen flex-col items-center mb-10">
 
       <div className="flex w-full h-80 items-center justify-center bg-gradient-to-r from-cyan-500 to-blue-500 mb-10">
         <div className="flex w-2/3">
@@ -40,26 +58,23 @@ export default async function Tickets() {
         </div>
       </div>
 
-      <Table>
+      <Table className="w-full mb-10">
         <TableHeader>
           <TableRow>
             <TableHead>
               Id
             </TableHead>
             <TableHead>
-              Продукт
+              Uid
             </TableHead>
             <TableHead>
               Магазин
             </TableHead>
             <TableHead>
-              Дата
+              Создан
             </TableHead>
             <TableHead>
-              Заявитель
-            </TableHead>
-            <TableHead>
-              Завышение цены
+              Обновлен
             </TableHead>
             <TableHead>
               Статус
@@ -67,21 +82,26 @@ export default async function Tickets() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {tickets.map((ticket: any) => (
-            <TableRow key={tickets.ticket}>
+          {tickets.map((ticket: Ticket) => (
+            <TableRow key={ticket.id}>
               <TableCell>
-                <Link href={`/tickets/${ticket.id}` }>{ticket.id}</Link>
+                <Link href={`/tickets/${ticket.id}`}>{ticket.id}</Link>
               </TableCell>
-              <TableCell>{ticket.title}</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
+              <TableCell>{ticket.userId}</TableCell>
+              <TableCell>{ticket.shopAddress}</TableCell>
+              <TableCell>{unixToDate(ticket.createdAt).toLocaleDateString()}</TableCell>
+              <TableCell>{unixToDate(ticket.updatedAt).toLocaleDateString()}</TableCell>
+              <TableCell>{getStatusString(ticket.status)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+
+      <PaginationControls
+        hasNextPage={end < tickets.length}
+        hasPrevPage={start > 0}
+      />
+
     </main>
   );
 }

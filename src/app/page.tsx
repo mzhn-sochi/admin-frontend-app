@@ -31,7 +31,7 @@ export default function Home() {
           <p className="text-2xl font-bold">Аналитика</p>
         </div>
         <div className="col-span-2 row-span-2 col-start-1 row-start-2 bg-slate-600 border-2 border-purple-500">
-          <Image src={"/1.png"} width={1000} height={500} alt="1" />
+          <Image src={"/3.jpg"} width={1000} height={500} alt="1" />
         </div>
         <div className="row-span-2 col-start-3 row-start-2">
           <p>Администрации доступна аналитика и статистика по критериям (кол-во жалоб, завышение цены и др.) жалоб/тикетов.</p>

@@ -8,8 +8,10 @@ export interface Ticket {
     firstName: string;
     middleName: string;
     shopAddress: string;
+    shopName: string;
     imageUrl: string;
     status: Status;
     createdAt: number;
     updatedAt: number;
+    reason?: string
 }

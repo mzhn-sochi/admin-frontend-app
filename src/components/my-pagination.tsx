@@ -48,10 +48,11 @@ const PaginationControls: FC<PaginationControlsProps> = (
           </Button>
         </PaginationItem>
         <PaginationItem>
-          {page} / {Math.ceil(10 / Number(perPage))}
+          {page} 
+          {/* / {Math.ceil(10 / Number(perPage))} */}
         </PaginationItem>
         <PaginationItem>
-          <Button variant="outline" size="icon" 
+          <Button variant="outline" size="icon"
             disabled={!hasNextPage}
             onClick={() => {
               router.push(`tickets/?page=${Number(page) + 1}&per_page=${perPage}`)

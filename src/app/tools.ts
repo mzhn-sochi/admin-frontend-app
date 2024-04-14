@@ -7,22 +7,22 @@ export enum Status {
 }
 
 export function unixToDate(unixTime: number) {
-    const date = new Date(unixTime);
+        const date = new Date(unixTime * 1000);
     return date;
 }
 
 export function getStatusString(status: Status): string {
     switch (status) {
         case Status.WAITING_OCR:
-            return "Ожидание OCR";
+            return "🔄 Ожидание OCR";
         case Status.WAITING_VALIDATION:
-            return "Ожидание валидации";
+            return "❔ Ожидание валидации";
         case Status.WAITING_APPROVAL:
-            return "Ожидание подтверждения";
+            return "❓ Ожидание подтверждения";
         case Status.CLOSED:
-            return "Закрыт";
+            return "✅ Закрыт";
         case Status.REJECTED:
-            return "Отклонен";
+            return "❌ Отклонен";
         default:
             return "UNKNOWN";
     }

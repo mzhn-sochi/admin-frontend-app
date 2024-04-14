@@ -43,7 +43,7 @@ export function MyNavigationMenu() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <Button><Link href="/authorization" legacyBehavior passHref>Вход</Link></Button>
+      <Button disabled><Link href="/authorization" legacyBehavior passHref>Вход</Link></Button>
     </header>
   )
 }

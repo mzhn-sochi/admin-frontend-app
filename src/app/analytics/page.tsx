@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Analytics() {
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <p className="mt-10">Добро пожаловать на страницу аналитки жалоб</p>
+      <p className="text-4xl font-bold mt-10">Добро пожаловать на страницу аналитки жалоб</p>
       <div className="grid w-2/3 grid-cols-2 grid-rows-2 gap-4">
         <div>
           <StatusChart/>
@@ -28,7 +28,7 @@ export default function Analytics() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-
+                {}
             </TableBody>
           </Table>
         </div>
